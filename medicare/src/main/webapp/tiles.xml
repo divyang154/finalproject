@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+
+<tiles-definitions>
+
+	<definition name="login" template="/WEB-INF/jsp/login.jsp">
+		<put-attribute name="body" value="/WEB-INF/jsp/login.jsp" />
+	</definition>
+	
+	<definition name="addMedicine" template="/WEB-INF/jsp/addMedicine.jsp">
+		<put-attribute name="body" value="/WEB-INF/jsp/addMedicine.jsp" />
+	</definition>
+	
+	<definition name="showAllMedicine" template="/WEB-INF/jsp/showAllMedicine.jsp">
+		<put-attribute name="body" value="/WEB-INF/jsp/showAllMedicine.jsp" />
+	</definition>
+	
+	<definition name="editMedicine" template="/WEB-INF/jsp/editMedicine.jsp">
+		<put-attribute name="body" value="/WEB-INF/jsp/editMedicine.jsp" />
+	</definition>
+	
+	<definition name="registerUser" template="/WEB-INF/jsp/registerUser.jsp">
+		<put-attribute name="body" value="/WEB-INF/jsp/registerUser.jsp" />
+	</definition>
+	
+	<definition name="UserPurchaseList" template="/WEB-INF/jsp/UserPurchaseList.jsp">
+		<put-attribute name="body" value="/WEB-INF/jsp/UserPurchaseList.jsp" />
+	</definition>
+
+</tiles-definitions>
