@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div class="container">
-		<h2>Display All Medicine</h2>
+		<h2 id="welcome-message">Display All Medicine</h2>
 			<form:form id="editMedicineFormId" modelAttribute="addMedicineForm" onsubmit="return false;">
 		<form:hidden id="formAct" path="formAct" value="businessDayEntryView" />
 		<div class="panel-body container">
