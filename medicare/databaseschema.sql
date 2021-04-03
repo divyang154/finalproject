@@ -1,3 +1,5 @@
+create schema medicaredb;
+
 CREATE TABLE `payment` (
   `paymentId` int(11) NOT NULL AUTO_INCREMENT,
   `medicineIdPurchasedList` varchar(200) NOT NULL,
