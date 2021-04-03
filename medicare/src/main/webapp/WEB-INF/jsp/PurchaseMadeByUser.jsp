@@ -14,31 +14,24 @@
 </head>
 <body>
 	<div class="container">
-		<h2>Select Medicines</h2>
-		<form:form id="userPurchaseFormId" modelAttribute="addMedicineForm"
+		<h2>Medicines Purchased By User</h2>
+		<form:form id="paymentFormId" modelAttribute="paymentForm"
 			onsubmit="return false;">
 			<form:hidden id="formAct" path="formAct" value="businessDayEntryView" />
 			<div class="panel-body container">
 				<table class="table table-striped table-bordered">
 					<thead>
 						<tr>
-							<th>Select</th>
-							<th>Medicine Name</th>
-							<th>Medicine Price</th>
-							<th>Medicine Seller</th>
-							<th>Medicine Description</th>
+							<th>Medicine Name List</th>
+							<th>Date Of Purchase</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${addMedicineForm.medicineDtoList}"
-							varStatus="row" var="medicineDtosListVar">
-							<tr id=${medicineDtosListVar.medicineId}>
-								<td>
-								<input type="checkbox" name="checkboxName" value="${medicineDtosListVar.medicineId}"></td>
-								<td>${medicineDtosListVar.medicineName}</td>
-								<td>${medicineDtosListVar.medicinePrice}</td>
-								<td>${medicineDtosListVar.medicineSeller}</td>
-								<td>${medicineDtosListVar.medicineDescription}</td>
+						<c:forEach items="${paymentForm.paymentDtoList}"
+							varStatus="row" var="paymentDtosListVar">
+							<tr>
+								<td>${paymentDtosListVar.medicineList}</td>
+								<td>${paymentDtosListVar.dateOfPurchase}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -46,8 +39,8 @@
 				<div>
 					<button class="btn btn-primary" name="Update" id='buttonId'
 						type="button" value="Purchase"
-						 onclick="javascript:formSubmit('selectedMedicineList',this.form,'selectedMedicineList');">
-						Purchase</button>
+						 onclick="javascript:formSubmit('backToPurchaseMedicine',this.form,'backToPurchaseMedicine');">
+						Purchase More Medicines</button>
 				</div>
 		</form:form>
 	</div>

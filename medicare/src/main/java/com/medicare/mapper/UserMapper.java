@@ -17,6 +17,7 @@ public UserDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 	userDto.setPassword(rs.getString("password"));
 	userDto.setUsername(rs.getString("userEmail"));
 	userDto.setUserRole(rs.getString("userRole"));
+	userDto.setUserId(rs.getInt("userId"));
 	return userDto;
 }
 }

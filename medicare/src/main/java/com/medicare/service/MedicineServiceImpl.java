@@ -1,5 +1,7 @@
 package com.medicare.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,6 +60,14 @@ public class MedicineServiceImpl implements MedicineService{
 		// TODO Auto-generated method stub
 		List<MedicineDto>medicineList= medicineDao.getAllMedicineDtoList().stream().filter(medicine -> medicine.getStatus()==0).collect(Collectors.toList());
 	    return medicineList;
+	}
+
+	@Override
+	public List<MedicineDto> getAllMedicineDtoById(String[] medicineIdList) {
+		// TODO Auto-generated method stub
+        List<String> medicineIdArraylist = new ArrayList<>(Arrays.asList(medicineIdList));
+		List<MedicineDto>medicineList= medicineDao.getAllMedicineDtoList().stream().filter(medicine -> medicineIdArraylist.contains(String.valueOf(medicine.getMedicineId()))).collect(Collectors.toList());
+		return medicineList;
 	}
 
 }

@@ -3,12 +3,15 @@ package com.medicare.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.medicare.dto.MedicineDto;
@@ -105,6 +108,27 @@ public class MedicineController {
 		medicineForm.setMedicineDtoList(medicineDtoList);
 		modelView.addObject("medicineForm", medicineForm);
 		return modelView;
+	}
+	
+	@RequestMapping(value= {"/selectedMedicineList"})
+	public ModelAndView selectedMedicineList(@RequestParam("checkboxName")String[] checkboxValue,HttpSession session) {
+		session.setAttribute("selectedInt", checkboxValue);
+		ModelAndView modelView=new ModelAndView();
+		List<MedicineDto> medicineDtoList=medicineService.getAllMedicineDtoById(checkboxValue);
+		MedicineForm medicineForm=new MedicineForm();
+		medicineForm.setMedicineDtoList(medicineDtoList);
+		modelView.addObject("addMedicineForm", medicineForm);
+		modelView.setViewName("PurchasedList");
+		return modelView;		
+	}
+	
+	@RequestMapping(value= {"/makePayment"})
+	public ModelAndView makePayment() {
+		ModelAndView modelView=new ModelAndView();
+		MedicineForm medicineForm=new MedicineForm();
+		modelView.addObject("addMedicineForm", medicineForm);
+		modelView.setViewName("MakePayment");
+		return modelView;		
 	}
 	
 	MedicineDto convertToMedicineDto(MedicineForm medicineForm){

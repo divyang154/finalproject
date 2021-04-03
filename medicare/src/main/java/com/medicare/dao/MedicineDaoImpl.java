@@ -12,6 +12,7 @@ import com.medicare.mapper.MedicineMapper;
 @Repository(value="medicineDao")
 public class MedicineDaoImpl implements MedicineDao{
 
+	final static int status=0;
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	private String insertQuery="insert into `medicine` (`medicineName`,`medicineDescription`,`medicinePrice`,`medicineSeller`,`status`) values (?,?,?,?,?)";
@@ -25,7 +26,7 @@ public class MedicineDaoImpl implements MedicineDao{
 	public int insert(MedicineDto medicineDto) {
 		// TODO Auto-generated method stub
 		System.out.println("console medicine" + medicineDto);
-		int returnedInt=jdbcTemplate.update(insertQuery,new Object[] {medicineDto.getMedicineName(),medicineDto.getMedicineDescription(),medicineDto.getMedicinePrice(),medicineDto.getMedicineSeller()});
+		int returnedInt=jdbcTemplate.update(insertQuery,new Object[] {medicineDto.getMedicineName(),medicineDto.getMedicineDescription(),medicineDto.getMedicinePrice(),medicineDto.getMedicineSeller(),status});
 		return returnedInt;
 	}
 

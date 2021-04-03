@@ -29,5 +29,9 @@
 	<definition name="UserPurchaseList" template="/WEB-INF/jsp/UserPurchaseList.jsp">
 		<put-attribute name="body" value="/WEB-INF/jsp/UserPurchaseList.jsp" />
 	</definition>
+	
+	<definition name="PurchasedList" template="/WEB-INF/jsp/PurchasedList.jsp">
+		<put-attribute name="body" value="/WEB-INF/jsp/PurchasedList.jsp" />
+	</definition>
 
 </tiles-definitions>

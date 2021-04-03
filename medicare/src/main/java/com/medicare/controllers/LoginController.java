@@ -2,6 +2,8 @@ package com.medicare.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +25,10 @@ public class LoginController {
 	UserService userService;
     @Autowired
     MedicineService medicineService;
+	private static final String addMedicineForm="addMedicineForm";
 	private static final String loginForm="loginForm";
 	private static final String userRole="userRole";
-	
+	private static final String adminRole="adminRole";
 	
 	@RequestMapping(value= {"/login"})
 	public ModelAndView getLogin(@ModelAttribute(loginForm) LoginForm loginForm) {
@@ -37,7 +40,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value= {"/checkLogin"})
-	public ModelAndView checkLogin(@ModelAttribute(loginForm) LoginForm loginForm) {
+	public ModelAndView checkLogin(@ModelAttribute(loginForm) LoginForm loginForm,HttpSession session,@ModelAttribute(addMedicineForm) MedicineForm medicineForm) {
 		ModelAndView modelView=new ModelAndView();
 		Boolean loginFlag=userService.authorizeLogin(loginForm.getUsername(), loginForm.getPassword());
 		loginForm.setLoginSuccessfull(loginFlag);
@@ -45,14 +48,18 @@ public class LoginController {
 			UserDto userDto=userService.getUserByUsername(loginForm.getUsername());
 			if(userDto.getUserRole().equals(userRole)){
 				List<MedicineDto>medicineDtoList=medicineService.getAllActiveMedicineDto();
+				session.setAttribute("userDto", userDto);
 				modelView.setViewName("UserPurchaseList");
-				MedicineForm medicineForm=new MedicineForm();
 				medicineForm.setMedicineDtoList(medicineDtoList);
 				modelView.addObject("addMedicineForm", medicineForm);
 				return modelView;
 			}
-			else {
-				
+			if(userDto.getUserRole().equals(adminRole)){
+				List<MedicineDto> medicineDtoList=medicineService.getAllMedicineDto();
+				modelView.setViewName("showAllMedicine");
+				medicineForm.setMedicineDtoList(medicineDtoList);
+				modelView.addObject("medicineForm", medicineForm);
+				return modelView;
 				
 			}
 		}

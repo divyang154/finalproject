@@ -19,5 +19,7 @@ public interface MedicineService {
 	public int updateMedicine(MedicineDto medicineDto);
 	
 	public List<MedicineDto> getAllActiveMedicineDto();
+	
+	public List<MedicineDto> getAllMedicineDtoById(String[] medicineIdList);
 
 }

@@ -61,6 +61,10 @@
 				</tbody>
 			</table>
 		</div>
+		<button class="btn btn-primary" name="Update" id='buttonId'
+						type="button" value="Add Medicine"
+						 onclick="javascript:formSubmit('loadMedicine',this.form,'loadMedicine');">
+						Add Medicine</button>
 		</form:form>
 	</div>
 </body>

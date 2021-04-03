@@ -26,7 +26,7 @@
 			Enter the medicine description : <input type="text" name="medicineDescription" />
 		</div>
 		<div>
-			<button class="btn btn-primary" name="Submit" id='buttonId' type="button" value="Save" onclick="javascript:formSubmit('addMedicine',this.form,'addMedicine');">
+			<button class="btn btn-primary" name="Submit" id='buttonId' type="button" value="Save" onclick="javascript:formSubmit('showAllMedicine',this.form,'showAllMedicine');">
 			Submit
 			</button>
 		</div>
