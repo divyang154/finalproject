@@ -50,8 +50,10 @@ public class MedicineController {
 		ModelAndView modelView=new ModelAndView();
 		MedicineDto medicineDto=convertToMedicineDto(medicineForm);
 		medicineService.insertMedicine(medicineDto);
-	    System.out.println("Model View:-" + medicineForm);
-		modelView.setViewName("addMedicine");
+		List<MedicineDto> medicineDtoList=medicineService.getAllMedicineDto();
+		modelView.setViewName("showAllMedicine");
+		medicineForm.setMedicineDtoList(medicineDtoList);
+		modelView.addObject("medicineForm", medicineForm);
 		return modelView;	
 	}
 	
