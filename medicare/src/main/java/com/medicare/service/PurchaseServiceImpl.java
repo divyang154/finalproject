@@ -32,6 +32,7 @@ public class PurchaseServiceImpl implements PurchaseService{
 		for (String string : purchasedItems) {
 			purchasedMedicineProductsString=purchasedMedicineProductsString + ","+string;
 		}
+		purchasedMedicineProductsString=purchasedMedicineProductsString.substring(1, purchasedMedicineProductsString.length());
 		paymentDao.savePurchasedItems(purchasedMedicineProductsString, userDto);
 		
 	}
@@ -50,6 +51,7 @@ public class PurchaseServiceImpl implements PurchaseService{
 				medicineNameList=medicineNameList+"," +medicineDto.getMedicineName();
 				}
 			}
+			medicineNameList=medicineNameList.substring(1, medicineNameList.length());
 			paymentDto.setMedicineList(medicineNameList);
 		}
 		return paymentDtoList;
