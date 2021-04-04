@@ -139,6 +139,7 @@ public class MedicineController {
 	public ModelAndView sortByPrice(@ModelAttribute(addMedicineForm) MedicineForm medicineForm) {
 		ModelAndView modelView = new ModelAndView();
 		List<MedicineDto> medicineDtoList = medicineService.getAllActiveMedicineDto();
+		Collections.sort(medicineDtoList);
 		modelView.setViewName("UserPurchaseList");
 		medicineForm.setMedicineDtoList(medicineDtoList);
 		modelView.addObject("addMedicineForm", medicineForm);
@@ -151,7 +152,6 @@ public class MedicineController {
 		List<MedicineDto> medicineDtoList = medicineService.getAllActiveMedicineDto();
 		medicineDtoList=medicineDtoList.stream().filter(medicineDto -> medicineDto.getMedicineName().contains(medicineName)).collect(Collectors.toList());
 		modelView.setViewName("UserPurchaseList");
-		Collections.sort(medicineDtoList);
 		medicineForm.setMedicineDtoList(medicineDtoList);
 		modelView.addObject("addMedicineForm", medicineForm);
 		return modelView;
