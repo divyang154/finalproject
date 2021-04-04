@@ -61,7 +61,7 @@ public class MedicineDaoImpl implements MedicineDao{
 	@Override
 	public int updateMedicineDtoStatus(Integer medicineId, Integer status) {
 		// TODO Auto-generated method stub
-		int returnedInt=jdbcTemplate.update(updateStatusQuery,new Object[] {medicineId,status});
+		int returnedInt=jdbcTemplate.update(updateStatusQuery,new Object[] {status,medicineId});
 		return returnedInt;
 	}
 
