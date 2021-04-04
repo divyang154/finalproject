@@ -35,5 +35,16 @@ CREATE TABLE `user_tb` (
   `userRole` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+INSERT INTO `medicaredb`.`user_tb`
+(`username`,
+`password`,
+`userEmail`,
+`userRole`)
+VALUES
+(
+'admin',
+'admin@123',
+'abc@gmail.com',
+'adminRole');
 
 
