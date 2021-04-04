@@ -18,6 +18,14 @@
 		<form:form id="userPurchaseFormId" modelAttribute="addMedicineForm"
 			onsubmit="return false;">
 			<form:hidden id="formAct" path="formAct" value="businessDayEntryView" />
+			<div>
+				Enter the Medicine name to be searched: <input type="text"
+					name="medicineName" />
+				<button class="btn btn-primary" name="Update" id='buttonId'
+					type="button" value="Search"
+					onclick="javascript:formSubmit('searchMedicine',this.form,'searchMedicine');">
+					Search</button>
+			</div>
 			<div class="panel-body container">
 				<table class="table table-striped table-bordered">
 					<thead>
@@ -33,8 +41,8 @@
 						<c:forEach items="${addMedicineForm.medicineDtoList}"
 							varStatus="row" var="medicineDtosListVar">
 							<tr id=${medicineDtosListVar.medicineId}>
-								<td>
-								<input type="checkbox" name="checkboxName" value="${medicineDtosListVar.medicineId}"></td>
+								<td><input type="checkbox" name="checkboxName"
+									value="${medicineDtosListVar.medicineId}"></td>
 								<td>${medicineDtosListVar.medicineName}</td>
 								<td>${medicineDtosListVar.medicinePrice}</td>
 								<td>${medicineDtosListVar.medicineSeller}</td>
@@ -46,13 +54,13 @@
 				<div>
 					<button class="btn btn-primary" name="Update" id='buttonId'
 						type="button" value="Purchase"
-						 onclick="javascript:formSubmit('selectedMedicineList',this.form,'selectedMedicineList');">
+						onclick="javascript:formSubmit('selectedMedicineList',this.form,'selectedMedicineList');">
 						Purchase</button>
 				</div>
 				<div style="padding-top: 2%;">
-					<button class="btn btn-primary" style="" name=sortByPrice id='buttonId'
-						type="button" value="sort"
-						 onclick="javascript:formSubmit('sortByPrice',this.form,'sortByPrice');">
+					<button class="btn btn-primary" style="" name=sortByPrice
+						id='buttonId' type="button" value="sort"
+						onclick="javascript:formSubmit('sortByPrice',this.form,'sortByPrice');">
 						Sort By Price</button>
 				</div>
 		</form:form>

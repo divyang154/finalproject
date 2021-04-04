@@ -3,6 +3,7 @@ package com.medicare.controllers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -138,6 +139,17 @@ public class MedicineController {
 	public ModelAndView sortByPrice(@ModelAttribute(addMedicineForm) MedicineForm medicineForm) {
 		ModelAndView modelView = new ModelAndView();
 		List<MedicineDto> medicineDtoList = medicineService.getAllActiveMedicineDto();
+		modelView.setViewName("UserPurchaseList");
+		medicineForm.setMedicineDtoList(medicineDtoList);
+		modelView.addObject("addMedicineForm", medicineForm);
+		return modelView;
+	}
+	
+	@RequestMapping(value = { "/searchMedicine" })
+	public ModelAndView searchMedicine(@ModelAttribute(addMedicineForm) MedicineForm medicineForm,@RequestParam("medicineName") String medicineName) {
+		ModelAndView modelView = new ModelAndView();
+		List<MedicineDto> medicineDtoList = medicineService.getAllActiveMedicineDto();
+		medicineDtoList=medicineDtoList.stream().filter(medicineDto -> medicineDto.getMedicineName().contains(medicineName)).collect(Collectors.toList());
 		modelView.setViewName("UserPurchaseList");
 		Collections.sort(medicineDtoList);
 		medicineForm.setMedicineDtoList(medicineDtoList);
