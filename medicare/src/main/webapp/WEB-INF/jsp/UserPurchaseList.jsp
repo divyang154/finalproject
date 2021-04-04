@@ -49,6 +49,12 @@
 						 onclick="javascript:formSubmit('selectedMedicineList',this.form,'selectedMedicineList');">
 						Purchase</button>
 				</div>
+				<div style="padding-top: 2%;">
+					<button class="btn btn-primary" style="" name=sortByPrice id='buttonId'
+						type="button" value="sort"
+						 onclick="javascript:formSubmit('sortByPrice',this.form,'sortByPrice');">
+						Sort By Price</button>
+				</div>
 		</form:form>
 	</div>
 </body>

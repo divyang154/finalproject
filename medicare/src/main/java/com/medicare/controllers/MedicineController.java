@@ -1,6 +1,7 @@
 package com.medicare.controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -22,119 +23,130 @@ import com.medicare.service.MedicineService;
 public class MedicineController {
 	@Autowired
 	MedicineService medicineService;
-	private static final String addMedicineForm="addMedicineForm";
-	private static final int activate=0;
-	private static final int deactivate=1;
+	private static final String addMedicineForm = "addMedicineForm";
+	private static final int activate = 0;
+	private static final int deactivate = 1;
 
-	
-	@RequestMapping(value= {"/loadMedicine"})
+	@RequestMapping(value = { "/loadMedicine" })
 	public ModelAndView loadMedicine(@ModelAttribute(addMedicineForm) MedicineForm medicineForm) {
-		ModelAndView modelView=new ModelAndView();
-	    System.out.println("Model View:-" + medicineForm);
+		ModelAndView modelView = new ModelAndView();
+		System.out.println("Model View:-" + medicineForm);
 		modelView.setViewName("addMedicine");
-		return modelView;	
+		return modelView;
 	}
-	
-	@RequestMapping(value= {"/showAllMedicine"})
+
+	@RequestMapping(value = { "/showAllMedicine" })
 	public ModelAndView showAllMedicine(@ModelAttribute(addMedicineForm) MedicineForm medicineForm) {
-		ModelAndView modelView=new ModelAndView();
-		List<MedicineDto> medicineDtoList=medicineService.getAllMedicineDto();
+		ModelAndView modelView = new ModelAndView();
+		List<MedicineDto> medicineDtoList = medicineService.getAllMedicineDto();
 		modelView.setViewName("showAllMedicine");
 		medicineForm.setMedicineDtoList(medicineDtoList);
 		modelView.addObject("medicineForm", medicineForm);
-		return modelView;	
+		return modelView;
 	}
-	
-	@RequestMapping(value= {"/addMedicine"})
+
+	@RequestMapping(value = { "/addMedicine" })
 	public ModelAndView addMedicine(@ModelAttribute(addMedicineForm) MedicineForm medicineForm) {
-		ModelAndView modelView=new ModelAndView();
-		MedicineDto medicineDto=convertToMedicineDto(medicineForm);
+		ModelAndView modelView = new ModelAndView();
+		MedicineDto medicineDto = convertToMedicineDto(medicineForm);
 		medicineService.insertMedicine(medicineDto);
-		List<MedicineDto> medicineDtoList=medicineService.getAllMedicineDto();
+		List<MedicineDto> medicineDtoList = medicineService.getAllMedicineDto();
 		modelView.setViewName("showAllMedicine");
 		medicineForm.setMedicineDtoList(medicineDtoList);
 		modelView.addObject("medicineForm", medicineForm);
-		return modelView;	
+		return modelView;
 	}
-	
-	@RequestMapping(value= {"/editMedicine"})
+
+	@RequestMapping(value = { "/editMedicine" })
 	public ModelAndView editMedicine(@ModelAttribute(addMedicineForm) MedicineForm medicineForm) {
-		ModelAndView modelView=new ModelAndView();
-		List<MedicineDto> medicineDtoLis=medicineService.getMedicineDto(medicineForm.getMedicineId());
+		ModelAndView modelView = new ModelAndView();
+		List<MedicineDto> medicineDtoLis = medicineService.getMedicineDto(medicineForm.getMedicineId());
 		modelView.setViewName("editMedicine");
 		modelView.addObject("medicineForm", convertToMedicineForm(medicineDtoLis.get(0)));
 		return modelView;
 	}
-	
-	@RequestMapping(value= {"/updateMedicine"})
+
+	@RequestMapping(value = { "/updateMedicine" })
 	public ModelAndView updateMedicine(@ModelAttribute(addMedicineForm) MedicineForm medicineForm) {
-		ModelAndView modelView=new ModelAndView();
+		ModelAndView modelView = new ModelAndView();
 		medicineService.updateMedicine(convertToMedicineDto(medicineForm));
 		modelView.setViewName("showAllMedicine");
-		List<MedicineDto> medicineDtoList=medicineService.getAllMedicineDto();
+		List<MedicineDto> medicineDtoList = medicineService.getAllMedicineDto();
 		medicineForm.setMedicineDtoList(medicineDtoList);
 		modelView.addObject("medicineForm", medicineForm);
 		return modelView;
 	}
-	
-	@RequestMapping(value= {"/deleteMedicine"})
+
+	@RequestMapping(value = { "/deleteMedicine" })
 	public ModelAndView deleteMedicine(@ModelAttribute(addMedicineForm) MedicineForm medicineForm) {
-		ModelAndView modelView=new ModelAndView();
+		ModelAndView modelView = new ModelAndView();
 		medicineService.deleteMedicineDto(medicineForm.getMedicineId());
 		modelView.setViewName("showAllMedicine");
-		List<MedicineDto> medicineDtoList=medicineService.getAllMedicineDto();
+		List<MedicineDto> medicineDtoList = medicineService.getAllMedicineDto();
 		medicineForm.setMedicineDtoList(medicineDtoList);
 		modelView.addObject("medicineForm", medicineForm);
 		return modelView;
 	}
-	
-	@RequestMapping(value= {"/changeStatusEnable"})
+
+	@RequestMapping(value = { "/changeStatusEnable" })
 	public ModelAndView changeStatus(@ModelAttribute(addMedicineForm) MedicineForm medicineForm) {
-		ModelAndView modelView=new ModelAndView();
+		ModelAndView modelView = new ModelAndView();
 		medicineForm.setStatus(activate);
 		medicineService.updateMedicineDtoStatus(medicineForm.getMedicineId(), medicineForm.getStatus());
 		modelView.setViewName("showAllMedicine");
-		List<MedicineDto> medicineDtoList=medicineService.getAllMedicineDto();
+		List<MedicineDto> medicineDtoList = medicineService.getAllMedicineDto();
 		medicineForm.setMedicineDtoList(medicineDtoList);
 		modelView.addObject("medicineForm", medicineForm);
 		return modelView;
 	}
-	
-	@RequestMapping(value= {"/changeStatusDisable"})
+
+	@RequestMapping(value = { "/changeStatusDisable" })
 	public ModelAndView changeStatusDisable(@ModelAttribute(addMedicineForm) MedicineForm medicineForm) {
-		ModelAndView modelView=new ModelAndView();
+		ModelAndView modelView = new ModelAndView();
 		medicineForm.setStatus(deactivate);
 		medicineService.updateMedicineDtoStatus(medicineForm.getMedicineId(), medicineForm.getStatus());
 		modelView.setViewName("showAllMedicine");
-		List<MedicineDto> medicineDtoList=medicineService.getAllMedicineDto();
+		List<MedicineDto> medicineDtoList = medicineService.getAllMedicineDto();
 		medicineForm.setMedicineDtoList(medicineDtoList);
 		modelView.addObject("medicineForm", medicineForm);
 		return modelView;
 	}
-	
-	@RequestMapping(value= {"/selectedMedicineList"})
-	public ModelAndView selectedMedicineList(@RequestParam("checkboxName")String[] checkboxValue,HttpSession session) {
+
+	@RequestMapping(value = { "/selectedMedicineList" })
+	public ModelAndView selectedMedicineList(@RequestParam("checkboxName") String[] checkboxValue,
+			HttpSession session) {
 		session.setAttribute("selectedInt", checkboxValue);
-		ModelAndView modelView=new ModelAndView();
-		List<MedicineDto> medicineDtoList=medicineService.getAllMedicineDtoById(checkboxValue);
-		MedicineForm medicineForm=new MedicineForm();
+		ModelAndView modelView = new ModelAndView();
+		List<MedicineDto> medicineDtoList = medicineService.getAllMedicineDtoById(checkboxValue);
+		MedicineForm medicineForm = new MedicineForm();
 		medicineForm.setMedicineDtoList(medicineDtoList);
 		modelView.addObject("addMedicineForm", medicineForm);
 		modelView.setViewName("PurchasedList");
-		return modelView;		
+		return modelView;
 	}
-	
-	@RequestMapping(value= {"/makePayment"})
+
+	@RequestMapping(value = { "/makePayment" })
 	public ModelAndView makePayment() {
-		ModelAndView modelView=new ModelAndView();
-		MedicineForm medicineForm=new MedicineForm();
+		ModelAndView modelView = new ModelAndView();
+		MedicineForm medicineForm = new MedicineForm();
 		modelView.addObject("addMedicineForm", medicineForm);
 		modelView.setViewName("MakePayment");
-		return modelView;		
+		return modelView;
 	}
 	
-	MedicineDto convertToMedicineDto(MedicineForm medicineForm){
-		MedicineDto medicineDto=new MedicineDto();
+	@RequestMapping(value = { "/sortByPrice" })
+	public ModelAndView sortByPrice(@ModelAttribute(addMedicineForm) MedicineForm medicineForm) {
+		ModelAndView modelView = new ModelAndView();
+		List<MedicineDto> medicineDtoList = medicineService.getAllActiveMedicineDto();
+		modelView.setViewName("UserPurchaseList");
+		Collections.sort(medicineDtoList);
+		medicineForm.setMedicineDtoList(medicineDtoList);
+		modelView.addObject("addMedicineForm", medicineForm);
+		return modelView;
+	}
+
+	MedicineDto convertToMedicineDto(MedicineForm medicineForm) {
+		MedicineDto medicineDto = new MedicineDto();
 		medicineDto.setMedicineDescription(medicineForm.getMedicineDescription());
 		medicineDto.setMedicineName(medicineForm.getMedicineName());
 		medicineDto.setMedicinePrice(medicineForm.getMedicinePrice());
@@ -142,9 +154,9 @@ public class MedicineController {
 		medicineDto.setMedicineId(medicineForm.getMedicineId());
 		return medicineDto;
 	}
-	
-	MedicineForm convertToMedicineForm(MedicineDto medicineDto){
-		MedicineForm medicineForm=new MedicineForm();
+
+	MedicineForm convertToMedicineForm(MedicineDto medicineDto) {
+		MedicineForm medicineForm = new MedicineForm();
 		medicineForm.setMedicineDescription(medicineDto.getMedicineDescription());
 		medicineForm.setMedicineName(medicineDto.getMedicineName());
 		medicineForm.setMedicineId(medicineDto.getMedicineId());

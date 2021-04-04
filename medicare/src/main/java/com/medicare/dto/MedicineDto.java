@@ -1,6 +1,6 @@
 package com.medicare.dto;
 
-public class MedicineDto {
+public class MedicineDto implements Comparable{
 	private int medicineId;
 	private String medicineName;
 	private Double medicinePrice;
@@ -50,5 +50,11 @@ public class MedicineDto {
 	}
 	public void setMedicineId(int medicineId) {
 		this.medicineId = medicineId;
+	}
+	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		MedicineDto medicineDto=(MedicineDto)o;
+		return this.medicinePrice.compareTo(medicineDto.getMedicinePrice());
 	}
 }
