@@ -149,7 +149,7 @@
 				<version>1.4.7</version>
 				<configuration>
 					<!-- replace `callicoder` with your docker id-->
-					<repository>dacharya789/medicareapp</repository>
+					<repository>medicareapp</repository>
 					<tag>1.0</tag>
 					<useMavenSettingsForAuth>true</useMavenSettingsForAuth>
 					<buildArgs>
