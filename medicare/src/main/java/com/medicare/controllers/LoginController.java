@@ -1,13 +1,12 @@
 package com.medicare.controllers;
 
+
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,7 +32,7 @@ public class LoginController {
 	private static final String adminRole="adminRole";
 	
 	@RequestMapping(value= {"/login"})
-	public ModelAndView getLogin(@ModelAttribute(loginForm) LoginForm loginForm) {
+	public ModelAndView getLogin(@ModelAttribute LoginForm loginForm) {
 		ModelAndView modelView=new ModelAndView();
 		loginForm.setLoginSuccessfull(true);
 		modelView.addObject("loginForm", loginForm);
@@ -42,7 +41,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value= {"/checkLogin"})
-	public ModelAndView checkLogin(@ModelAttribute(loginForm) LoginForm loginForm,HttpSession session,@ModelAttribute(addMedicineForm) MedicineForm medicineForm) {
+	public ModelAndView checkLogin(@ModelAttribute LoginForm loginForm,HttpSession session,@ModelAttribute MedicineForm medicineForm) {
 		ModelAndView modelView=new ModelAndView();
 		Boolean loginFlag=userService.authorizeLogin(loginForm.getUsername(), loginForm.getPassword());
 		loginForm.setLoginSuccessfull(loginFlag);
@@ -54,20 +53,16 @@ public class LoginController {
 				modelView.setViewName("UserPurchaseList");
 				medicineForm.setMedicineDtoList(medicineDtoList);
 				modelView.addObject("addMedicineForm", medicineForm);
-				return modelView;
 			}
 			if(userDto.getUserRole().equals(adminRole)){
 				List<MedicineDto> medicineDtoList=medicineService.getAllMedicineDto();
 				modelView.setViewName("showAllMedicine");
 				medicineForm.setMedicineDtoList(medicineDtoList);
 				modelView.addObject("medicineForm", medicineForm);
-				return modelView;
 				
 			}
 		}
-		else {
-			
-		}
+		
 		
 		modelView.setViewName("addMedicine");
 		modelView.addObject("loginForm", loginForm);

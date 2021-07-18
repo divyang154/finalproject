@@ -124,6 +124,12 @@
 			<version>3.6</version>
 			<scope>test</scope>
 		</dependency>
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-compress</artifactId>
+    <version>1.18</version>
+</dependency>
+		
 	</dependencies>
 	<build>
 		<plugins>
@@ -140,13 +146,13 @@
                 <plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>1.4.0</version>
+				<version>1.4.7</version>
 				<configuration>
 					<!-- replace `callicoder` with your docker id-->
 					<repository>dacharya789/medicareapp</repository>
-					<tag>${project.version}</tag>
+					<tag>1.0</tag>
 					<buildArgs>
-						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+						<JAR_FILE>target/medicare-0.0.1-SNAPSHOT.jar</JAR_FILE>
 					</buildArgs>
 				</configuration>
 				<executions>
@@ -157,6 +163,33 @@
 							<goal>build</goal>
 							<goal>push</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+          <manifest>
+            <addClasspath>true</addClasspath>
+            <classpathPrefix>lib/</classpathPrefix>
+            <mainClass>com.medicare.mainApp.MedicareApp</mainClass>
+          </manifest>
+        </archive>
+					<!-- Remove the "-jar-with-dependencies" at the end of the file -->
+					<appendAssemblyId>false</appendAssemblyId>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<phase>package</phase>
 					</execution>
 				</executions>
 			</plugin>
