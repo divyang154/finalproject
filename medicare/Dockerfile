@@ -8,10 +8,10 @@ VOLUME /tmp
 EXPOSE 8080
 
 # The application's jar file
-ARG JAR_FILE=target/medicare.jar
+ARG JAR_FILE=target/medicare-0.0.1-SNAPSHOT.jar
 
 # Add the application's jar to the container
-ADD ${JAR_FILE} medicare.jar
+ADD ${JAR_FILE} medicare-0.0.1-SNAPSHOT.jar
 
 # Run the jar file 
 
