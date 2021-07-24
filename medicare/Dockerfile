@@ -15,4 +15,4 @@ ADD ${JAR_FILE} medicare-0.0.1-SNAPSHOT.jar
 
 # Run the jar file 
 
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/medicare.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/medicare-0.0.1-SNAPSHOT.jar"]
