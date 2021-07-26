@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.medicare.dto.MedicineDto;
@@ -20,7 +21,7 @@ import com.medicare.service.UserService;
 
 
 
-@Controller
+@RestController
 public class LoginController {
     @Autowired
 	UserService userService;
@@ -41,7 +42,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value= {"/checkLogin"})
-	public ModelAndView checkLogin(@ModelAttribute LoginForm loginForm,HttpSession session,@ModelAttribute MedicineForm medicineForm) {
+	public ModelAndView checkLogin(@ModelAttribute LoginForm loginForm,HttpSession session,@ModelAttribute MedicineForm addMedicineForm) {
 		ModelAndView modelView=new ModelAndView();
 		Boolean loginFlag=userService.authorizeLogin(loginForm.getUsername(), loginForm.getPassword());
 		loginForm.setLoginSuccessfull(loginFlag);
@@ -51,14 +52,14 @@ public class LoginController {
 				List<MedicineDto>medicineDtoList=medicineService.getAllActiveMedicineDto();
 				session.setAttribute("userDto", userDto);
 				modelView.setViewName("UserPurchaseList");
-				medicineForm.setMedicineDtoList(medicineDtoList);
-				modelView.addObject("addMedicineForm", medicineForm);
+				addMedicineForm.setMedicineDtoList(medicineDtoList);
+				modelView.addObject("addMedicineForm", addMedicineForm);
 			}
 			if(userDto.getUserRole().equals(adminRole)){
 				List<MedicineDto> medicineDtoList=medicineService.getAllMedicineDto();
 				modelView.setViewName("showAllMedicine");
-				medicineForm.setMedicineDtoList(medicineDtoList);
-				modelView.addObject("medicineForm", medicineForm);
+				addMedicineForm.setMedicineDtoList(medicineDtoList);
+				modelView.addObject("addMedicineForm", addMedicineForm);
 				
 			}
 		}

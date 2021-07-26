@@ -20,6 +20,19 @@
 	<name>medicare Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
+	<dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.0</version>
+</dependency>
+	<dependency>
+       <groupId>org.slf4j</groupId>
+       <artifactId>slf4j-api</artifactId>
+   </dependency>
+   <dependency>
+       <groupId>org.slf4j</groupId>
+       <artifactId>slf4j-simple</artifactId>
+   </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -169,28 +182,21 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.1.0</version>
+				 <artifactId>maven-plugin-plugin</artifactId>
+                    <version>3.3</version>
 				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
+				<source>1.8</source>
+                <target>1.8</target>
 					<archive>
-          <manifest>
-            <addClasspath>true</addClasspath>
-            <classpathPrefix>lib/</classpathPrefix>
-            <mainClass>com.medicare.mainApp.MedicareApp</mainClass>
-          </manifest>
-        </archive>
-					<!-- Remove the "-jar-with-dependencies" at the end of the file -->
-					<appendAssemblyId>false</appendAssemblyId>
+                      <manifest>
+                         <mainClass>com.medicare.mainApp.MedicareApp</mainClass>
+                      </manifest>
+                    </archive>
 				</configuration>
 				<executions>
 					<execution>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<phase>package</phase>
+					<id>default-descriptor</id>
+                    <phase>process-classes</phase>
 					</execution>
 				</executions>
 			</plugin>
